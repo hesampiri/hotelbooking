@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: ghcr.io/ferretdb/postgres-documentdb:17-0.107.0-ferretdb-2.7.0
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=hesam
+      - POSTGRES_PASSWORD=playboy12345
+      - POSTGRES_DB=postgres
+    volumes:
+      - D:/postgres-data/hotelbooking:/var/lib/postgresql/data
+
+  ferretdb:
+    image: ghcr.io/ferretdb/ferretdb:2.7.0
+    restart: on-failure
+    ports:
+      - 27018:27017
+    environment:
+      - FERRETDB_POSTGRESQL_URL=postgres://hesam:playboy12345@postgres:5432/postgres
+
+networks:
+  default:
+    name: ferretdb
