@@ -1,5 +1,7 @@
 // User, Hotel, Room, and Booking model types
 
+import { Types } from "mongoose";
+
 export interface User {
   _id: string;
   name: string;
@@ -8,14 +10,25 @@ export interface User {
   // Add more fields as needed
 }
 
+export type BedType = "King" | "Queen" | "Twin" | "Sofa Bed";
+
+export interface IBed {
+  type: BedType;
+  count: number;
+}
+
 export interface RoomType {
   _id: string;
-  hotel: string; // Hotel _id
+  hotel: string;
   name: string;
-  price: number;
-  guests: number;
+  description?: string;
+  capacity: number;
   quantity: number;
-  // Add amenities and other fields as needed
+  size?: number;
+  beds: IBed[];
+  pricePerNight: number;
+  images: string[];
+  amenities: string[];
 }
 
 export interface HotelType {
