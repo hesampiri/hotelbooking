@@ -57,6 +57,7 @@ export default function SignInForm() {
           setstatus("success");
         },
         onError: (ctx) => {
+          setstatus("")
           alert(ctx.error.message);
         },
       },
