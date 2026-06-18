@@ -15,6 +15,7 @@ import HotelMapWrapper, {
 } from "@/components/map/HotelMapWrapper";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import HotelCardSkeleton from "../HotelCardSkeleton";
 
 const HotelList = () => {
   const {
@@ -26,15 +27,15 @@ const HotelList = () => {
     queryFn: () => getHotels(),
   });
 
-const tehranHotels = useMemo(
-  () => hotels?.filter((h: HotelType) => h.city === "Tehran") ?? [],
-  [hotels]
-);
+  const tehranHotels = useMemo(
+    () => hotels?.filter((h: HotelType) => h.city === "Tehran") ?? [],
+    [hotels],
+  );
 
-const kishHotels = useMemo(
-  () => hotels?.filter((h: HotelType) => h.city === "Kish") ?? [],
-  [hotels]
-);
+  const kishHotels = useMemo(
+    () => hotels?.filter((h: HotelType) => h.city === "Kish") ?? [],
+    [hotels],
+  );
 
   const markers: HotelMarker[] = hotels?.map((h: HotelType) => ({
     id: h._id,
@@ -56,14 +57,9 @@ const kishHotels = useMemo(
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-3 gap-6">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex flex-col gap-2 animate-pulse">
-            <div className="aspect-square w-full rounded-xl bg-gray-200" />
-            <div className="h-4 w-3/4 rounded bg-gray-200" />
-            <div className="h-3 w-1/2 rounded bg-gray-200" />
-            <div className="h-3 w-1/3 rounded bg-gray-200" />
-          </div>
+      <div className="grid md:grid-cols-4 grid-rows-4 gap-6 p-2">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <HotelCardSkeleton key={i} />
         ))}
       </div>
     );
