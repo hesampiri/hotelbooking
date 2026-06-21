@@ -24,34 +24,24 @@ interface HotelMapProps {
 
 // Fix Leaflet's broken default icon paths in Next.js
 const createHotelIcon = () =>
-    L.divIcon({
-      className: "leaflet-hotel-icon",
-      html: `
-        <div style="
-          background: white;
-          border: 2px solid #111827;
-          border-radius: 9999px;
-          padding: 4px 10px;
-          font-size: 13px;
-          font-weight: 600;
-          color: #111827;
-          white-space: nowrap;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          width: fit-content;
-        ">
-          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="#111827">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-          Hotel
-        </div>
-      `,
-      iconSize: undefined,
-      iconAnchor: [30, 16],
-    });
+  L.divIcon({
+    className: "leaflet-hotel-icon",
+    html: `
+      <div style="position: relative; width: 40px; height: 52px;">
+        <svg viewBox="0 0 40 52" width="40" height="52">
+          <path
+            d="M20 2 C10.6 2 3 9.6 3 19 C3 34 20 50 20 50 C20 50 37 34 37 19 C37 9.6 29.4 2 20 2 Z"
+            fill="oklch(0.553 0.195 38.402)"
+            stroke="oklch(0.45 0.195 38.402)"
+            stroke-width="1.5"
+          />
+          <circle cx="20" cy="19" r="6" fill="white" opacity="0.4"/>
+        </svg>
+      </div>
+    `,
+    iconSize: [40, 52],
+    iconAnchor: [20, 50],
+  });
 
 const createPopupContent = (hotel: HotelMarker) => `
   <div style="min-width:180px; font-family: inherit;">
