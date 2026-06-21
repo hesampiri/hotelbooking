@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 import { RoomType } from "@/types";
 import { Card, CardContent } from "../ui/card";
@@ -7,10 +6,16 @@ import { Badge } from "../ui/badge";
 import { useQuery } from "@tanstack/react-query";
 import { getRooms } from "@/features/hotel/queries/hotelApi";
 import RoomCardSkeleton from "../RoomCardSkeleton";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams.entries());
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
   const {
     data: rooms,
     error,
@@ -20,7 +25,6 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
     queryFn: () => getRooms(hotelId, params),
     enabled: !!hotelId,
   });
-
 
   function getRoomBeds(room: RoomType) {
     const parts: string[] = [];
@@ -34,6 +38,16 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
 
   if (isLoading) {
     return <RoomCardSkeleton />;
+  }
+
+  function bookingHandler(roomId: string) {
+    if (!session?.user) {
+      toast.info("Please login first", { position: "top-center" });
+      return;
+    }
+    router.push(
+      `/hotel/${hotelId}/booking?roomId=${roomId}&from=${params.from}&to=${params.to}&guests=${params.guests ?? 1 }`,
+    );
   }
 
   return (
@@ -88,7 +102,9 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
                         / night
                       </span>
                     </div>
-                    <Button size="sm">Book</Button>
+                    <Button size="sm" onClick={() => bookingHandler(room._id)}>
+                      Book
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
