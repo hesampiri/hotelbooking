@@ -1,7 +1,4 @@
 // User, Hotel, Room, and Booking model types
-
-import { Types } from "mongoose";
-
 export interface User {
   _id: string;
   name: string;
@@ -49,6 +46,15 @@ export interface HotelType {
   rooms: RoomType[]; // or string[] if just IDs
 }
 
+export interface ReviewType {
+  _id: string;
+  user: { _id: string; name: string };
+  hotel: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
 export type BookingStatus = "pending" | "confirmed" | "cancelled";
 
 export interface Booking {
@@ -61,6 +67,4 @@ export interface Booking {
   guests: number;
   totalPrice: number;
   status: BookingStatus;
-  createdAt?: string;
-  updatedAt?: string;
 }
