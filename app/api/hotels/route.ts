@@ -20,12 +20,16 @@ export async function GET(req: NextRequest) {
   const to = searchParams.get("to");
   const filter: FilterType = {};
 
+  const hasSearchParams = destination || from || to;
+
   if (destination) {
     filter.city = { $regex: destination, $options: "i" };
   }
 
   try {
-    const allHotels = await Hotel.find(filter).populate("rooms");
+    const allHotels = await Hotel.find(filter).populate(
+      hasSearchParams ? "rooms" : "",
+    );
     let hotels;
 
     if (from && to) {
