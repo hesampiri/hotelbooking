@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { HotelType } from "@/types";
 
 const HotelCard = ({ hotel }: { hotel: HotelType }) => {
+  console.log(hotel.images);
+  
   return (
     <Card className="group cursor-pointer border-0 shadow-none bg-transparent p-0 ">
       <CardContent className="flex flex-col gap-2 p-0 max-h-75">
@@ -13,7 +15,7 @@ const HotelCard = ({ hotel }: { hotel: HotelType }) => {
         <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted">
           {hotel.images ? (
             <Image
-              src={"/images/ChatGPT Image Jun 17, 2026, 08_58_02 AM.png"}
+              src={hotel.images[0] ?? "/images/ChatGPT Image Jun 17, 2026, 08_58_02 AM.png"}
               alt={hotel.name}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
