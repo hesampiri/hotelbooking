@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { DatePickerRange } from "./search/datePickerRange";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -22,9 +22,6 @@ const RoomFilterSection = ({ hotelId }: { hotelId: string }) => {
     );
   }
 
-  function resetHandler() {
-    router.push(`/hotel/${hotelId}`,{scroll:false});
-  }
 
   return (
     <div className="flex flex-col md:flex-row items-stretch md:items-end gap-3 my-10 w-full">
@@ -44,13 +41,6 @@ const RoomFilterSection = ({ hotelId }: { hotelId: string }) => {
 
       <Button className="h-12 w-full md:w-32" onClick={handleDateCheck}>
         Check
-      </Button>
-
-      <Button
-        className="h-12 w-full md:w-32 bg-accent-foreground"
-        onClick={resetHandler}
-      >
-        Reset
       </Button>
     </div>
   );
