@@ -21,6 +21,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { Menu, Hotel, LogOut, User, LayoutDashboard, Home } from "lucide-react";
+import ThemeToggle from "@/components/themeToggle";
 
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
@@ -46,13 +47,13 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex h-14 items-center justify-start px-4 sm:px-6 lg:px-8 ">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
           <Hotel className="size-5 text-primary" />
           <span>HotelBooking.com</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex  mx-auto gap-1 ">
           {navLinks.map((link) => (
             <Button
               key={link.href}
@@ -69,6 +70,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           {isPending ? (
             <div className="h-8 w-20 animate-pulse rounded-md bg-muted" />
           ) : session ? (
@@ -84,6 +86,12 @@ export function Navbar() {
                   <Link href="/dashboard">
                     <LayoutDashboard className="size-4" />
                     Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/booking">
+                    <LayoutDashboard className="size-4" />
+                    My Bookings
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -138,6 +146,9 @@ export function Navbar() {
             </nav>
             <Separator className="my-4" />
             <div className="flex flex-col gap-2">
+              <div className="flex justify-end">
+                <ThemeToggle />
+              </div>
               {isPending ? (
                 <div className="space-y-2">
                   <div className="h-9 w-full animate-pulse rounded-md bg-muted" />
