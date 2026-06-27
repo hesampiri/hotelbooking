@@ -22,10 +22,11 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["rooms", params],
+    queryKey: ["rooms", hotelId , params],
     queryFn: () => getRooms(hotelId, params),
-    enabled: !!hotelId,
   });
+
+  
 
   function getRoomBeds(room: RoomType) {
     const parts: string[] = [];
