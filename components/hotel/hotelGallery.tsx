@@ -15,17 +15,17 @@ interface HotelGalleryProps {
 
 export default function HotelGallery({ images }: HotelGalleryProps) {
   const mainImage = images[0];
-  const sideImages = images.slice(1, 5);
+  const sideImages = images.slice(1, 4);
   const defaultImage = "/images/ChatGPT Image Jun 17, 2026, 08_58_02 AM.png";
 
   return (
     <Dialog>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 h-100 overflow-hidden rounded-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-1 h-100 overflow-hidden rounded-2xl">
         {/* Main image */}
         <DialogTrigger asChild>
           <div className="relative lg:col-span-3 cursor-pointer">
             <Image
-              src={defaultImage}
+              src={mainImage}
               alt="Hotel"
               fill
               className="object-cover transition-transform duration-300 hover:scale-105"
@@ -34,12 +34,12 @@ export default function HotelGallery({ images }: HotelGalleryProps) {
         </DialogTrigger>
 
         {/* Side images */}
-        <div className="hidden lg:grid grid-rows-3 gap-2">
+        <div className="hidden lg:grid grid-rows-3 gap-1">
           {sideImages.map((img, index) => (
             <DialogTrigger asChild key={index}>
               <div className="relative cursor-pointer overflow-hidden">
                 <Image
-                  src={defaultImage}
+                  src={img}
                   alt={`Hotel ${index + 1}`}
                   fill
                   className="object-cover transition-transform duration-300 hover:scale-105"
@@ -67,7 +67,7 @@ export default function HotelGallery({ images }: HotelGalleryProps) {
             {images.map((img, index) => (
               <div key={index} className="relative h-[300px]">
                 <Image
-                  src={defaultImage}
+                  src={img}
                   alt={`Hotel ${index}`}
                   fill
                   className="object-cover rounded-lg"
