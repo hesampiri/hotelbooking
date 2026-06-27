@@ -1,5 +1,18 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+- Next.js 16 App Router
+- TypeScript
+- Better Auth
+- React Query
+- MongoDB/Mongoose
+- shadcn/ui
+- Tailwind CSS
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+Architecture:
+- Server Components by default
+- Client Components only when hooks are needed
+- React Query for caching and synchronization
+- all the components should be fully resposive  
+
+Coding Style:
+- No `any`
+- Use Zod validation
+- Use absolute imports with `@/`
