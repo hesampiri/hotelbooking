@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { CalendarDays, CreditCard, Loader2, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card , CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Booking, BookingStatus } from "@/types";
 
@@ -64,11 +64,11 @@ const BookingInfoCard = () => {
   return (
     <div className="flex flex-col gap-4">
       {bookings.map((booking) => (
-        <Card key={booking._id}>
-          <div className="flex flex-row">
-            {/* Image — left side */}
+        <Card key={booking._id} className="p-0">
+          <div className="flex flex-col md:flex-row">
+            {/* Image — top on mobile, left on desktop */}
             {booking.hotel?.images?.[0] && (
-              <div className="relative w-48 shrink-0 overflow-hidden rounded-l-lg bg-muted">
+              <div className="relative h-48 w-full shrink-0 overflow-hidden rounded-t-lg bg-muted md:h-auto md:w-48 md:rounded-l-lg md:rounded-t-none">
                 <Image
                   src={booking.hotel.images[0]}
                   alt={booking.hotel.name}
@@ -78,11 +78,11 @@ const BookingInfoCard = () => {
               </div>
             )}
 
-            {/* Content — right side */}
+            {/* Content */}
             <div className="flex flex-1 flex-col justify-between p-4">
               {/* Header */}
               <div className="flex items-start justify-between gap-2">
-                <CardTitle className="text-base">
+                <CardTitle className="text-sm sm:text-base">
                   {booking.hotel?.name ?? "Hotel"}
                 </CardTitle>
                 <Badge
@@ -94,16 +94,16 @@ const BookingInfoCard = () => {
               </div>
 
               {/* Details */}
-              <div className="mt-3 space-y-2 text-sm">
+              <div className="mt-3 space-y-2 text-xs sm:text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
+                  <MapPin className="h-4 w-4 shrink-0" />
                   <span>
                     {booking.hotel?.city}, {booking.hotel?.country}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <CalendarDays className="h-4 w-4" />
+                  <CalendarDays className="h-4 w-4 shrink-0" />
                   <span>
                     {format(new Date(booking.checkInDate), "MMM dd, yyyy")}{" "}
                     &ndash;{" "}
@@ -112,7 +112,7 @@ const BookingInfoCard = () => {
                 </div>
 
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <Users className="h-4 w-4" />
+                  <Users className="h-4 w-4 shrink-0" />
                   <span>
                     {booking.guests} guest{booking.guests !== 1 ? "s" : ""}
                   </span>
@@ -120,7 +120,7 @@ const BookingInfoCard = () => {
               </div>
 
               {/* Footer */}
-              <div className="mt-3 flex items-center justify-between border-t pt-2">
+              <div className="mt-3 flex flex-col gap-1 border-t pt-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-sm text-muted-foreground">
                   {booking.room?.name}
                 </span>
