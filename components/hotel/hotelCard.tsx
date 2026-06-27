@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { HotelType } from "@/types";
 
 const HotelCard = ({ hotel }: { hotel: HotelType }) => {
-  console.log(hotel.images);
   
   return (
     <Card className="group cursor-pointer border-0 shadow-none bg-transparent p-0 ">
