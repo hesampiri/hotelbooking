@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
   const searchParams = useSearchParams();
@@ -46,7 +47,7 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
       return;
     }
     router.push(
-      `/hotel/${hotelId}/booking?roomId=${roomId}&from=${params.from}&to=${params.to}&guests=${params.guests ?? 1 }`,
+      `/hotel/${hotelId}/booking?roomId=${roomId}&from=${params.from}&to=${params.to}&guests=${params.guests ?? 1}`,
     );
   }
 
@@ -61,8 +62,17 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
             const r = room as RoomType;
             return (
               <Card key={room._id}>
-                <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
+                <CardContent className="px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="relative w-full sm:w-32 h-24 shrink-0 rounded-md overflow-hidden">
+                    <Image
+                      src={room.images[0]}
+                      alt={room.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="space-y-1 w-full">
                     <h3 className="font-semibold text-foreground">
                       {room.name}
                     </h3>
@@ -73,18 +83,18 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
                       </span>
                       <span className="flex items-center gap-1">
                         <BedDouble className="h-3.5 w-3.5" />
-                        {getRoomBeds(r)}
+                        {getRoomBeds(room)}
                       </span>
-                      {r.size && (
+                      {room.size && (
                         <span className="flex items-center gap-1">
                           <Maximize className="h-3.5 w-3.5" />
-                          {r.size} m²
+                          {room.size} m²
                         </span>
                       )}
                     </div>
-                    {r.amenities && r.amenities.length > 0 && (
+                    {room.amenities && room.amenities.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-1">
-                        {r.amenities.map((a) => (
+                        {room.amenities.map((a) => (
                           <Badge key={a} variant="outline" className="text-xs">
                             {a}
                           </Badge>
@@ -92,10 +102,11 @@ const AvailableRooms = ({ hotelId }: { hotelId: string }) => {
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 sm:text-right">
+
+                  <div className="flex items-center gap-3 sm:text-right shrink-0">
                     <div>
                       <span className="text-lg font-bold text-foreground">
-                        ${r.pricePerNight ?? room.pricePerNight}
+                        ${room.pricePerNight}
                       </span>
                       <span className="text-sm text-muted-foreground">
                         {" "}
