@@ -16,8 +16,16 @@ import HotelMapWrapper, {
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import HotelCardSkeleton from "../HotelCardSkeleton";
+import { useFilterStore } from "@/providers/filter-store-provider";
+import { format } from "date-fns";
 
 const HotelList = () => {
+  const dateRange = useFilterStore((state) => state.dateRange);
+  const formattedDateRange = {
+    from: dateRange?.from ? format(dateRange.from, "yyyy-MM-dd") : undefined,
+    to: dateRange?.to ? format(dateRange.to, "yyyy-MM-dd") : undefined,
+  };
+
   const {
     data: hotels,
     isLoading,
@@ -45,14 +53,16 @@ const HotelList = () => {
     rating: h.rating,
     city: h.city,
     country: h.country,
-    // pricePerNight: h.pricePerNight,
+    pricePerNight: h.rooms[0].pricePerNight,
     imageUrl: h.images?.[0],
   }));
 
   const router = useRouter();
 
   function routeHandler(id: string) {
-    router.push(`/hotel/${id}`);
+    router.push(
+      `/hotel/${id}?from=${formattedDateRange.from}&to=${formattedDateRange.to}`,
+    );
   }
 
   if (isLoading) {
@@ -79,7 +89,7 @@ const HotelList = () => {
 
   return (
     <div className="w-full px-2">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Hotels</h1>
+      <h1 className="text-2xl font-semibold text-foreground mb-6">Hotels</h1>
       <div>
         <Carousel
           opts={{
@@ -100,12 +110,12 @@ const HotelList = () => {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className="-left-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12" />
-          <CarouselNext className="-right-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12" />
+          <CarouselPrevious className="-left-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12 hidden sm:flex" />
+          <CarouselNext className="-right-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12 hidden sm:flex" />
         </Carousel>
       </div>
       <div className="py-10">
-        <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+        <h1 className="text-2xl font-semibold text-foreground mb-6">
           Theran Hotels
         </h1>
         <Carousel
@@ -126,13 +136,12 @@ const HotelList = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          <CarouselPrevious className="-left-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12" />
-          <CarouselNext className="-right-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12" />
+          <CarouselPrevious className="-left-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12 hidden sm:flex" />
+          <CarouselNext className="-right-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12 hidden sm:flex" />
         </Carousel>
       </div>
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+        <h1 className="text-2xl font-semibold text-foreground mb-6">
           Kish Hotels
         </h1>
         <Carousel
@@ -154,11 +163,11 @@ const HotelList = () => {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className="-left-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12" />
-          <CarouselNext className="-right-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12" />
+          <CarouselPrevious className="-left-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12 hidden sm:flex" />
+          <CarouselNext className="-right-5 border border-gray-300 bg-white shadow-sm hover:bg-gray-50 size-12 hidden sm:flex" />
         </Carousel>
       </div>
-      <div className="w-full h-[300px] border mt-5 rounded ">
+      <div className="w-full h-75 border my-10 rounded ">
         <HotelMapWrapper
           hotels={markers}
           className="w-full h-full rounded-xl overflow-hidden"
