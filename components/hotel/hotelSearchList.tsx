@@ -10,6 +10,8 @@ import HotelSearchFilterPanel, {
 } from "./hotelSearchFilterPanel";
 import { Button } from "@/components/ui/button";
 import { SlidersHorizontal } from "lucide-react";
+import HotelCardSkeleton from "../HotelCardSkeleton";
+import HotelSearchCardSkeleton from "../hotelSearchCardSkeleton";
 
 const HotelSearchList = () => {
   const searchParams = useSearchParams();
@@ -35,9 +37,7 @@ const HotelSearchList = () => {
   const allAmenities = useMemo(() => {
     if (!hotels) return [];
     const set = new Set<string>();
-    hotels.forEach((h: HotelType) =>
-      h.amenities?.forEach((a) => set.add(a)),
-    );
+    hotels.forEach((h: HotelType) => h.amenities?.forEach((a) => set.add(a)));
     return Array.from(set).sort();
   }, [hotels]);
 
@@ -85,21 +85,7 @@ const HotelSearchList = () => {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex gap-6">
-        <div className="hidden lg:block w-64 shrink-0">
-          <div className="sticky top-24 rounded-xl border bg-card p-4 h-96 animate-pulse" />
-        </div>
-        <div className="flex-1 space-y-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-44 rounded-xl bg-muted animate-pulse"
-            />
-          ))}
-        </div>
-      </div>
-    );
+    return <HotelSearchCardSkeleton />;
   }
 
   if (error) {
