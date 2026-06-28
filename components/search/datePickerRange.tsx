@@ -35,7 +35,7 @@ export function DatePickerRange() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <div className="flex cursor-pointer gap-1">
+        <div className="flex flex-col md:flex-row cursor-pointer gap-1 w-full md:w-80">
           <Field className="relative rounded-md border p-3 *:w-auto">
             <span className=" absolute w-40 -top-2 left-3 bg-background px-1 text-xs text-muted-foreground">
               Check-in
