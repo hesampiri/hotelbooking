@@ -83,7 +83,7 @@ const createPopupContent = (hotel: HotelMarker) => `
 
 export default function HotelMap({
   hotels,
-  className = "w-full h-[500px]",
+  className = "w-full h-125",
   onMarkerClick,
 }: HotelMapProps) {
   const mapRef = useRef<L.Map | null>(null);

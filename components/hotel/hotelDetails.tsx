@@ -138,7 +138,7 @@ const HotelDetails = () => {
           <div className="w-full h-75">
             <HotelMap
               hotels={[markers]}
-              className="w-full h-full rounded-xl overflow-hidden"
+              className="w-full h-full rounded-xl overflow-hidden z-10"
             />
           </div>
         </div>
