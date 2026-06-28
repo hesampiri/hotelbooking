@@ -146,7 +146,7 @@ export function Navbar() {
             </nav>
             <Separator className="my-4" />
             <div className="flex flex-col gap-2">
-              <div className="flex justify-end">
+              <div className="flex justify-center ">
                 <ThemeToggle />
               </div>
               {isPending ? (
@@ -169,10 +169,10 @@ export function Navbar() {
                 </>
               ) : (
                 <>
-                  <Button variant="outline" asChild onClick={() => setOpen(false)}>
+                  <Button variant="outline" className="w-50 mx-auto" asChild onClick={() => setOpen(false)}>
                     <Link href="/sign-in">Sign In</Link>
                   </Button>
-                  <Button asChild onClick={() => setOpen(false)}>
+                  <Button asChild className="w-50 mx-auto" onClick={() => setOpen(false)}>
                     <Link href="/register">Register</Link>
                   </Button>
                 </>
