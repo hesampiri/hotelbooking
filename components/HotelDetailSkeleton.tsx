@@ -2,7 +2,7 @@ import { Skeleton } from "./ui/skeleton";
 
 const HotelDetailSkeleton = () => {
   return (
-    <div className="">
+    <div className="mb-10">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 h-100 overflow-hidden rounded-2xl mt-5">
         {/* Main image */}
         <Skeleton className="lg:col-span-3 h-full w-full rounded-xl" />
