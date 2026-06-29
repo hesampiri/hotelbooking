@@ -14,6 +14,7 @@ export async function connectDB() {
   try {
     await mongoose.connect(MONGODB_URI!);
     console.log("Database connected ✅");
+    console.log("Database:", mongoose.connection.db?.databaseName);
   } catch {
     console.log("There is somthing wrong with the database connection");
   }
