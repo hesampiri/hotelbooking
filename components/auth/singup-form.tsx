@@ -56,6 +56,7 @@ export default function SignUpForm() {
         name: data.name,
         email: data.email,
         password: data.password,
+        callbackURL:"/",
       },
       {
         onRequest: () => {
